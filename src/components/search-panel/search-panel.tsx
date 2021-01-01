@@ -148,6 +148,7 @@ const SearchPanel = (props: ISearchPanel) => {
             <Box display="flex">
                 <Box width={226}>
                 {loading ? (<Box><CircularProgress style={{marginTop:'20px', marginRight:'8px'}} color="inherit" size={20} /> Ports are loading</Box>) : <Autocomplete
+                    id="portField"
                     onChange={handlePort}
                     ListboxComponent={ListboxComponent as React.ComponentType<React.HTMLAttributes<HTMLElement>>}
                     options={ports}
@@ -173,7 +174,7 @@ const SearchPanel = (props: ISearchPanel) => {
                     />}
                 </Box>
                 <Box mr={11}></Box>
-                <Box width={226}><TextField onKeyDown={handleDistanceKeyDown} onChange={handleDistance} value={distance}  fullWidth={true} label="Distance (km)"/></Box>
+                <Box width={226}><TextField id="distance" onKeyDown={handleDistanceKeyDown} onChange={handleDistance} value={distance}  fullWidth={true} label="Distance (km)"/></Box>
             </Box>
             {!typeCheck && <StyledAlertBox mt={3} p={2} bgcolor={'#f2f2f2'}><strong>Warning: </strong> Distance field should be a number. <StyledCloseButton onClick={()=> setTypeCheck(true)}>Hide</StyledCloseButton></StyledAlertBox>}
 
@@ -183,9 +184,9 @@ const SearchPanel = (props: ISearchPanel) => {
                     label="Include Idle Vessels"
                 />
             </Box>
-            {searchWarning && <StyledAlertBox mt={3} p={2} bgcolor={'#f2f2f2'}><strong>Warning: </strong> {searchWarning} <StyledCloseButton onClick={()=> setSearchWarning(undefined)}>Hide</StyledCloseButton></StyledAlertBox>}
+            {searchWarning && <StyledAlertBox mt={3} p={2} bgcolor={'#f2f2f2'}><strong>Warning: </strong> <span className="searchWarning">{searchWarning}</span> <StyledCloseButton onClick={()=> setSearchWarning(undefined)}>Hide</StyledCloseButton></StyledAlertBox>}
             <Box mt={4} display="flex">
-                <Button onClick={()=>props.handleSearch(port,startDate.toString(),endDate.toString(),distance,includeIdleVessels, setSearchWarning)} variant="outlined" color="primary">SEARCH</Button>
+                <Button id="searchButton" onClick={()=>props.handleSearch(port,startDate.toString(),endDate.toString(),distance,includeIdleVessels, setSearchWarning)} variant="outlined" color="primary">SEARCH</Button>
                 <StyledClear onClick={handleClear} variant="outlined" color="primary">CLEAR</StyledClear>
             </Box>
         </React.Fragment>
